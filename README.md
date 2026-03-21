@@ -1,0 +1,130 @@
+<div align="center">
+  <h1>🌊 BizFlow: An AI-Native Business OS Demo</h1>
+  <p><b>Bridging the gap between Autonomous Agents and Enterprise Workflows.</b></p>
+  <p><i>A highly visual, Human-in-the-Loop (HITL) orchestration framework for complex AI tasks.</i></p>
+
+  <br>
+
+  > **"这可能更接近未来人类与 AI 协同工作的真实形态——AI 负责执行，人类负责监督和兜底。"**
+
+  <br>
+
+  <p>
+    <a href="#-why-i-built-this">Why I built this</a> • 
+    <a href="#-core-features">Core Features</a> • 
+    <a href="#-core-architecture-pnsa-范式">Architecture (PNSA)</a> • 
+    <a href="#-quick-start">Quick Start</a> • 
+    <a href="#-roadmap--how-to-contribute">Roadmap</a>
+  </p>
+</div>
+
+---
+
+## 🤔 Why I built this?
+
+在尝试将 AI Agent（如基于大模型的网页操控、自动化录入脚本）落地到真实的业务场景时，我遇到了一个巨大的痛点：**执行过程太“黑盒”了，且容错率极低。**
+
+现有的方案往往面临两难：
+*   **纯代码 Agent (如 AutoGPT/Devin)**：一旦运行，你只能在终端里看着密密麻麻的 Log。如果它在一个表单页面卡住了，或者遇到了一个极度扭曲的验证码，整个任务直接崩溃，你连介入帮忙的机会都没有。
+*   **传统 Workflow (如 Coze/Dify)**：虽然有连线图，但对这种需要“具身操作”的长时间异步任务，缺乏细粒度的监控和人工接管机制。
+
+因此，我构思并写下了 **BizFlow** 这个概念验证项目 (POC)。
+
+它的核心思路很简单：**把 Agent 的执行逻辑画成可见的图纸 (DAG) 或者按照已确认的执行逻辑执行，并且在关键节点挂上一个“刹车 (Auditor)”。如果 AI 遇到了它的能力边界，把画面定格推给人类，人类在控制台点一下，AI 带着人类的输入继续跑。**
+
+正如项目标语所言，BizFlow 不追求盲目的“全自动”，而是致力于打造一个极其优雅的**人机协同工作台 (Human-in-the-Loop Workbench)**。
+
+---
+
+## ✨ Core Features
+
+1. **👀 100% 可视化的执行过程 (Execution Visibility)**  
+   不再是看着终端里的字符串发呆。BizFlow 的前端提供了一个双分屏的 `Studio`：左侧是正在发光流转的节点图，右侧是实况推流大屏（未来可接入 Browser-use 等物理执行画面的推流）。
+
+2. **🛑 优雅的人机接管 (Human-in-the-Loop Workbench)**  
+   这或许是本项目最有意思的地方。在编排节点时，你可以开启 `interrupt_before: true`。当 AI 走到这里（例如准备向 CRM 写入敏感数据前），流程会挂起 (Suspended)。任务会出现在你的 `Inbox (Workbench)` 里，等待你亲自点击“确认放行”。
+
+3. **💬 Chat-to-SOP (动态意图生成)**  
+   在 `Copilot` 窗口中用自然语言描述一个复杂任务（如“帮我调研 Shopify 并录入系统”），底层的 LLM 会直接输出一段 BPNL (JSON) 协议，并在前端瞬间渲染成可二次拖拽、修改的业务流程图。
+
+4. **🗄️ Everything is an Asset (极简的 FileDB 资产化)**  
+   为了开箱即用，系统底层的 Flows（图纸）、Agents（数字员工）、Models（模型配置）和 Cases（人工接管记录）全部被持久化为本地的 JSON 文件。这让系统具备了极强的可移植性和隐私性。
+
+---
+
+## 🏗️ Core Architecture: PNSA 范式
+
+BizFlow 的底层哲学是：**AI 的泛化智力必须被关进系统控制的笼子里。** 
+为此，BizFlow 独创了 **PNSA 架构**，将业务流与大模型 Agent 进行了降维重构：
+
+*   **[ P ] Parametric (参数化)**：节点内不再是写死的死板代码，而是可以动态挂载具体的数字员工 (Agent)、底层模型 (Model) 和原子能力 (Skills)。
+*   **[ N ] Nodal (节点化)**：物理隔离上下文边界。将复杂的长链路任务切分为离散节点，彻底防止大模型在复杂任务中陷入“发散与死循环”。
+*   **[ S ] Supervisor (监督者)**：连线上的动态卫兵。根据前置 Agent 的执行结果（如识别出验证码、风控评分过低），动态决定是走主干流水线，还是掉入重试/告警分支。
+*   **[ A ] Auditor (审计与熔断)**：**系统的终极护城河。** 面对高危节点（如写入 CRM、触发付款），引擎将被强制挂起，将决策权和物理按键交还给人类。
+
+### ⚙️ The Tech Stack (技术栈实现)
+
+*   **前端 (The Cockpit)**: `Next.js 14` + `TailwindCSS` + `React Flow` (@xyflow/react) + `Zustand`
+    *   *打造了充满极客质感的暗黑系多视窗桌面，包含了 Chat、Studio、Workbench、Assets 等模块。*
+*   **后端 (The Orchestrator)**: `FastAPI` + `LangGraph` + `LiteLLM`
+    *   *利用 LangGraph 的状态机特性，将前端的 JSON 图纸动态编译为可执行的图，并通过 WebSocket 将执行节点 ID 实时广播给前端实现高亮。*
+*   **存储 (The Storage)**: 极简的本地 FileSystem JSON DB。
+    *   *（生产环境建议通过 Repository 模式替换为数据库）。*
+
+---
+
+## 🚀 Quick Start
+
+> **Note**: This is currently a Proof of Concept (POC). The frontend UI is highly polished, and the backend core compiler/websocket loop is functional. However, features like distributed task queues (Celery) or real browser-use integrations require further development.
+
+### 1. Start the Backend Engine
+```bash
+git clone https://github.com/your-username/bizflow.git
+cd bizflow/backend
+
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Run the FastAPI server
+uvicorn app.main:app --reload --port 8000
+```
+*(Tip: Add your `OPENAI_API_KEY` or `DEEPSEEK_API_KEY` in the Frontend's `Model Hub` once it's running.)*
+
+### 2. Start the Frontend OS
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+Open `http://localhost:3000` to enter the BizFlow dashboard.
+
+---
+
+## 🗺️ Roadmap & How to Contribute
+
+我开源这套代码，是希望为大家提供一个 **“高颜值的 AI 工作流控制台脚手架”**。如果你也觉得这套人机协同（HITL）的理念很酷，非常欢迎你提交 PR 来一起完善它：
+
+- [x] 基于 React Flow 的编排器与容器化 (Phase/Sublane) 布局。
+- [x] 后端 BPNL JSON 编译器与 WebSocket 状态广播。
+- [x] 全局 FileDB 资产化持久层 (Flows, Models, Agents, Cases)。
+- [ ] **[Backend]** 接入 `Celery` / `Temporal` 以支持多任务并发执行，避免当前 `main.py` 的单线程阻塞。
+- [ ] **[Backend]** 接入数据库作为 LangGraph 的 Checkpointer，实现真实的任务挂起与恢复。
+- [ ] **[Execution]** 真正将 `browser-use` 封装成一个 Node Component，并将实时的网页截图通过 WebSocket 推流到前端的 Monitor 大屏中。
+- [ ] **[Evolution]** 基于 `Ledger` 中收集的人工接管记录（Cases），利用 Optimizer Agent 实现图纸（Flows）的自我修正与进化。
+
+---
+
+## 📄 License & Contact
+
+BizFlow is released under the **MIT License**. You are free to use, modify, and distribute it for personal or commercial projects. 
+
+*If you find the architectural design or the UI/UX concepts of BizFlow valuable for your enterprise use cases, or if you're interested in consulting / custom development, feel free to reach out:*
+
+📧 **[charismamiko@gmail.com]**
+
+---
+<div align="center">
+  <p><i>Built for the hackers who want control over their Agents.</i></p>
+  <p><b>✨ 特别鸣谢：此项目核心架构与理念由 Gemini 协同推演创作。</b></p>
+</div>
