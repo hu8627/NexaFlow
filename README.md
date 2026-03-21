@@ -12,14 +12,14 @@
   <br>
 
   <p>
-    <a href="#english-version"><b>🇬🇧 English Documentation</b></a> • 
-    <a href="#中文介绍"><b>🇨🇳 中文说明文档</b></a>
+    <a href="#english-version"><b>English Documentation</b></a> • 
+    <a href="#中文介绍"><b>中文说明文档</b></a>
   </p>
 </div>
 
 ---
 
-<h2 id="english-version">🇬🇧 English Version</h2>
+<h2 id="english-version">English Version</h2>
 
 ### 🤔 Why I built this?
 
@@ -55,7 +55,7 @@ BizFlow's underlying philosophy is: **AI's generalized intelligence must be cont
 
 <br>
 
-<h2 id="中文介绍">🇨🇳 中文说明文档</h2>
+<h2 id="中文介绍">中文说明文档</h2>
 
 ### 🤔 为什么做这个项目？
 
