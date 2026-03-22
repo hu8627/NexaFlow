@@ -2,19 +2,20 @@
 import React, { useEffect, useRef } from 'react';
 import { useUIStore } from '@/store/uiStore';
 import { useExecStore } from '@/store/execStore';
-import { MessageSquare, Network, Cpu, Wrench, Database, ArrowLeft, PlayCircle,Blocks,ShieldAlert,Users,Archive, Inbox } from 'lucide-react'; // 💡 引入 Blocks 图标
+import { MessageSquare, Network, Cpu, Wrench, Database, ArrowLeft, PlayCircle,Blocks,ShieldAlert,Users,Archive, Inbox,Hash } from 'lucide-react'; // 💡 引入 Blocks 图标
 // 引入子系统视图
 import FlowCanvas from '@/components/canvas/FlowCanvas';
 import ModelHub from '@/components/dashboard/ModelHub';
-import AgentHub from '@/components/dashboard/AgentHub'; // 💡 引入新组件
+import AgentHub from '@/components/dashboard/AgentHub'; 
 import SkillRegistry from '@/components/dashboard/SkillRegistry';
-import FlowList from '@/components/dashboard/FlowList'; // 💡 引入我们刚写的组件
+import FlowList from '@/components/dashboard/FlowList'; 
 import LedgerView from '@/components/dashboard/LedgerView';
 import ChatCopilot from '@/components/dashboard/ChatCopilot';
-import IntegrationHub from '@/components/dashboard/IntegrationHub'; // 💡 引入新组件
-import MonitorHub from '@/components/dashboard/MonitorHub'; // 💡 引入新组件
-import AssetHub from '@/components/dashboard/AssetHub'; // 💡 引入新组件
-import Workbench from '@/components/dashboard/Workbench'; // 💡 引入工作台
+import IntegrationHub from '@/components/dashboard/IntegrationHub'; 
+import MonitorHub from '@/components/dashboard/MonitorHub'; 
+import AssetHub from '@/components/dashboard/AssetHub'; 
+import Workbench from '@/components/dashboard/Workbench'; 
+import Workspace from '@/components/dashboard/Workspace'; 
 
 
 
@@ -49,6 +50,7 @@ export default function BizFlowOS() {
         <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-lg font-black text-white shadow-[0_0_15px_rgba(37,99,235,0.5)] mb-8">B</div>
         <div className="flex-1 w-full space-y-2">
           {/* 区块 1：工作区 */}
+          <NavItem id="workspace" icon={<Hash size={20} />} label="Workspace" /> 
           <NavItem id="chat" icon={<MessageSquare size={20} />} label="Copilot" />
           <NavItem id="workbench" icon={<Inbox size={20} />} label="Inbox" />
           <NavItem id="studio" icon={<Network size={20} />} label="Studio" />
@@ -70,6 +72,7 @@ export default function BizFlowOS() {
 
       {/* 2. 动态主工作区 */}
       <div className="flex-1 relative overflow-hidden flex flex-col">
+        {currentView === 'workspace' && <Workspace />} {/* 💡 新增这行 */}
         {currentView === 'models' && <ModelHub />}
         {currentView === 'agents' && <AgentHub />} {/* 💡 新增这行 */}
         {currentView === 'skills' && <SkillRegistry />}

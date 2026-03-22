@@ -37,7 +37,7 @@ async def get_system_meta_assets():
     扫描整个 FileDB 的存储状况，返回各域的表结构及数据量
     这让 BizFlow 拥有了对自身的 '反射' (Reflection) 能力
     """
-    domains = ["flows", "models", "skills", "integrations", "monitors", "chats", "agents", "traces", "cases"]
+    domains = ["flows", "models", "skills", "integrations", "monitors", "chats", "agents", "traces", "cases","workspaces"]
     meta_stats = []
     
     for domain in domains:
@@ -103,6 +103,60 @@ async def save_chat_session(session: ChatSessionParams):
     FileStorage.save("chats", session.dict(), session.id)
     return {"status": "success"}
 
+# ==============================================================================
+# 模块 B-7：公共频道群聊持久化 (Workspace Channels)
+# ==============================================================================
+class ChannelMessage(BaseModel):
+    id: str
+    type: str
+    user: Optional[str] = None
+    agentId: Optional[str] = None
+    agentName: Optional[str] = None
+    text: str
+    time: str
+    isAction: Optional[bool] = False
+    actionCard: Optional[dict] = None
+
+class WorkspaceChannel(BaseModel):
+    id: str
+    name: str
+    unread: int
+    desc: str
+    messages: List[ChannelMessage]
+
+@app.get("/api/workspaces")
+async def get_workspace_channels():
+    """获取所有群聊频道及其历史消息"""
+    channels = FileStorage.list_all("workspaces")
+    
+    # 注入出厂默认的三个频道和演示消息
+    if not channels:
+        default_channels = [
+            {
+                "id": "marketing", "name": "营销活动与增长", "unread": 2, 
+                "desc": "与 [文案写手] 和 [数据分析师] 共同策划 Campaign",
+                "messages": [
+                    {"id": "m1", "type": "system", "text": "Welcome to #营销活动与增长 channel. Agent [文案小李] and [数据老王] have joined.", "time": "09:00 AM"},
+                    {"id": "m2", "type": "human", "user": "产品经理 (我)", "text": "大家早上好。我们需要策划一下下周五的大促。@数据老王 拉一下去年数据。", "time": "09:05 AM"},
+                    {"id": "m3", "type": "agent", "agentId": "a_data", "agentName": "数据老王", "text": "收到。已生成可视化报表，是否需要我将数据喂给 @文案小李？", "time": "09:06 AM", "isAction": False},
+                    {"id": "m4", "type": "human", "user": "产品经理 (我)", "text": "好的。@文案小李 根据数据写推文。", "time": "09:10 AM"},
+                    {"id": "m5", "type": "agent", "agentId": "a_writer", "agentName": "文案小李", "text": "文案已生成完毕，并已打包为标准 SOP 卡片。您可以直接一键分发。", "time": "09:12 AM", "isAction": True, "actionCard": {"title": "大促推文分发 SOP", "nodes": 3, "target": "Social Media"}}
+                ]
+            },
+            {"id": "customer_service", "name": "售后与投诉处理", "unread": 0, "desc": "与 [客服专员] 处理客诉 SOP", "messages": []},
+            {"id": "finance", "name": "财务对账与报销", "unread": 5, "desc": "与 [财务审批流] 对接", "messages": []}
+        ]
+        for c in default_channels:
+            FileStorage.save("workspaces", c, c["id"])
+        channels = default_channels
+
+    return {"status": "success", "data": channels}
+
+@app.post("/api/workspaces")
+async def save_workspace_channel(channel: WorkspaceChannel):
+    """保存或更新单个频道的消息记录"""
+    FileStorage.save("workspaces", channel.dict(), channel.id)
+    return {"status": "success"}
 
 # ==============================================================================
 # 模块 C：资产管理 API (业务流程 Flows)

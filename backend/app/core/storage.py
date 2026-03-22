@@ -9,15 +9,15 @@ DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__
 # 核心资产目录
 DIRS = {
     "chats": os.path.join(DATA_DIR, "chats"),
+    "workspaces": os.path.join(DATA_DIR, "workspaces"),
     "flows": os.path.join(DATA_DIR, "flows"),
     "models": os.path.join(DATA_DIR, "models"),
     "skills": os.path.join(DATA_DIR, "skills"),
     "integrations": os.path.join(DATA_DIR, "integrations"),
     "monitors": os.path.join(DATA_DIR, "monitors"),
     "agents": os.path.join(DATA_DIR, "agents") ,
-    # 💡 新增的两大运行时资产库
-    "traces": os.path.join(DATA_DIR, "traces"),     # 全局任务执行轨迹 (成功/失败/挂起)
-    "cases": os.path.join(DATA_DIR, "cases")        # 人工介入修正记录 (AI 进化的燃料)
+    "traces": os.path.join(DATA_DIR, "traces"),     
+    "cases": os.path.join(DATA_DIR, "cases")  
 }
 
 # 初始化时自动创建目录

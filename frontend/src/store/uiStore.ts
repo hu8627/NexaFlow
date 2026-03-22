@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 
-// 💡 新增了 'integrations' 视图
-type ViewType = 'chat' | 'workbench' | 'studio' | 'agents' | 'models' | 'skills' | 'integrations' | 'assets' | 'monitor' | 'ledger';
+type ViewType = 'chat' | 'workspace' | 'studio' | 'agents' | 'models' | 'skills' | 'integrations' | 'assets' | 'monitor' | 'ledger' | 'workbench';
 
 interface UIState {
   currentView: ViewType;
