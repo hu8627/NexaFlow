@@ -8,7 +8,8 @@
   > **"This might be closer to the true form of future human-AI collaboration: <br> AI executes, humans supervise and provide the safety net."**
   > 
   > **"这可能更接近未来人类与 AI 协同工作的真实形态——AI 负责执行，人类负责监督和兜底。"**
-
+  
+  <img width="1281" height="798" alt="截屏2026-03-23 01 41 38" src="https://github.com/user-attachments/assets/d8887b96-13ad-4d0a-9b05-b771927ed317" />
   <br>
 
   <p>
