@@ -15,7 +15,7 @@ USER_HOME = str(Path.home())
 DB_DIR = os.path.join(USER_HOME, ".nexaflow", "data")
 os.makedirs(DB_DIR, exist_ok=True)
 
-DB_PATH = os.path.join(DB_DIR, "nexaflow_v2.db") # 💡 SQLite 单文件数据库
+DB_PATH = os.path.join(DB_DIR, "nexaflow_v2.db")
 DATABASE_URL = f"sqlite:///{DB_PATH}"
 
 # ==============================================================================
@@ -77,6 +77,17 @@ class CaseRecord(Base):
     human_action = Column(Text, nullable=False)
     time = Column(String(50), nullable=False)
 
+# 💡 新增：提示词工程专属表 (Prompts)
+class PromptRecord(Base):
+    __tablename__ = "prompts"
+    id = Column(String(50), primary_key=True, index=True)
+    name = Column(String(100), nullable=False)
+    desc = Column(Text, nullable=True)
+    content = Column(Text, nullable=False)
+    tags_json = Column(Text, default="[]")
+    version = Column(String(20), default="1.0")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
 class GenericAssetRecord(Base):
     """通用资产表 (用于 integrations, monitors, chats 等暂时无需拆解的资产)"""
     __tablename__ = "generic_assets"
@@ -91,7 +102,6 @@ Base.metadata.create_all(bind=engine)
 # 4. Repository 存储网关 (自动映射到对应的物理表)
 # ==============================================================================
 class FileStorage:
-    """NexaFlow OS 统一的本地存储网关 (基于严格 Schema 的 SQLite 驱动)"""
     
     @staticmethod
     def _get_model_class(domain: str):
@@ -100,7 +110,8 @@ class FileStorage:
             "agents": AgentRecord,
             "flows": FlowRecord,
             "workspaces": WorkspaceRecord,
-            "cases": CaseRecord
+            "cases": CaseRecord,
+            "prompts": PromptRecord # 💡 新增映射
         }
         return mapping.get(domain, GenericAssetRecord)
 
@@ -181,6 +192,25 @@ class FileStorage:
                     record.time = data_dict.get("time", record.time)
                 else:
                     db.add(CaseRecord(id=record_id, flow_id=data_dict.get("flow_id", ""), node_id=data_dict.get("node_id", ""), reason=data_dict.get("reason", ""), human_action=data_dict.get("human_action", ""), time=data_dict.get("time", "")))
+
+            # --- 7. Prompts (提示词工程库) 💡 新增 ---
+            elif ModelClass == PromptRecord:
+                tags_str = json.dumps(data_dict.get("tags", []), ensure_ascii=False)
+                if record:
+                    record.name = data_dict.get("name", record.name)
+                    record.desc = data_dict.get("desc", record.desc)
+                    record.content = data_dict.get("content", record.content)
+                    record.tags_json = tags_str
+                    record.version = data_dict.get("version", record.version)
+                else:
+                    db.add(PromptRecord(
+                        id=record_id, 
+                        name=data_dict.get("name", "未命名"), 
+                        desc=data_dict.get("desc", ""), 
+                        content=data_dict.get("content", ""), 
+                        tags_json=tags_str, 
+                        version=data_dict.get("version", "1.0")
+                    ))
                 
             db.commit()
             print(f"💾 [SQLite] 结构化资产已固化: {domain} -> {record_id}")
@@ -204,7 +234,6 @@ class FileStorage:
             
             if not record: return None
 
-            # --- 反向组装回 Dict 供前端 API 使用 ---
             try:
                 if ModelClass == GenericAssetRecord: return json.loads(record.data_json)
                 elif ModelClass == FlowRecord: return {"id": record.id, "name": record.name, "description": record.description, "nodes": json.loads(record.nodes_json) if record.nodes_json else [], "edges": json.loads(record.edges_json) if record.edges_json else []}
@@ -212,6 +241,8 @@ class FileStorage:
                 elif ModelClass == AgentRecord: return {"id": record.id, "name": record.name, "role": record.role, "desc": record.desc, "model": record.model_id, "skills": json.loads(record.skills_json) if record.skills_json else [], "isSystem": record.is_system, "status": record.status}
                 elif ModelClass == WorkspaceRecord: return {"id": record.id, "name": record.name, "desc": record.desc, "unread": record.unread, "messages": json.loads(record.messages_json) if record.messages_json else []}
                 elif ModelClass == CaseRecord: return {"id": record.id, "flow_id": record.flow_id, "node_id": record.node_id, "reason": record.reason, "human_action": record.human_action, "time": record.time}
+                # 💡 新增：读取并重组 Prompt 返回
+                elif ModelClass == PromptRecord: return {"id": record.id, "name": record.name, "desc": record.desc, "content": record.content, "tags": json.loads(record.tags_json) if record.tags_json else [], "version": record.version}
             except Exception as e:
                 print(f"⚠️ [SQLite] 记录解析失败 (ID: {record_id}): {e}")
                 return None
@@ -227,14 +258,12 @@ class FileStorage:
             ModelClass = FileStorage._get_model_class(domain)
             query = db.query(ModelClass)
             
-            # 💡 核心防御：防止通用表跨域污染数据
             if ModelClass == GenericAssetRecord:
                 query = query.filter(GenericAssetRecord.domain == domain)
             
             records = query.all()
             results = []
             
-            # 批量转换与异常捕捉
             for r in records:
                 try:
                     if ModelClass == GenericAssetRecord: results.append(json.loads(r.data_json))
@@ -243,6 +272,8 @@ class FileStorage:
                     elif ModelClass == AgentRecord: results.append({"id": r.id, "name": r.name, "role": r.role, "desc": r.desc, "model": r.model_id, "skills": json.loads(r.skills_json) if r.skills_json else [], "isSystem": r.is_system, "status": r.status})
                     elif ModelClass == WorkspaceRecord: results.append({"id": r.id, "name": r.name, "desc": r.desc, "unread": r.unread, "messages": json.loads(r.messages_json) if r.messages_json else []})
                     elif ModelClass == CaseRecord: results.append({"id": r.id, "flow_id": r.flow_id, "node_id": r.node_id, "reason": r.reason, "human_action": r.human_action, "time": r.time})
+                    # 💡 新增：批量读取 Prompts
+                    elif ModelClass == PromptRecord: results.append({"id": r.id, "name": r.name, "desc": r.desc, "content": r.content, "tags": json.loads(r.tags_json) if r.tags_json else [], "version": r.version})
                 except Exception as parse_err:
                     print(f"⚠️ [SQLite] 跳过损坏的记录 {domain} -> {r.id}: {parse_err}")
                     continue

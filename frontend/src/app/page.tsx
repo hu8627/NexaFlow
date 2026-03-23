@@ -1,4 +1,4 @@
-//  Copyright (C) 2026 NexaFlow Team (charismamikoo@gmail.com)
+//  Copyright (C) 2024 NexaFlow Team (charismamikoo@gmail.com)
 //  This file is part of NexaFlow.
 //  NexaFlow is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as published by
@@ -10,7 +10,8 @@ import { useExecStore } from '@/store/execStore';
 import { 
   MessageSquare, Network, Cpu, Wrench, Database, 
   Blocks, ShieldAlert, Users, Archive, Inbox, Hash, 
-  ChevronRight, ChevronDown, Search, Settings, Command
+  ChevronRight, ChevronDown, Search, Settings, Command, Quote,
+  FilePlus2, Loader2 // 💡 补上了这两个关键图标
 } from 'lucide-react';
 
 import FlowCanvas from '@/components/canvas/FlowCanvas';
@@ -24,7 +25,11 @@ import AgentHub from '@/components/dashboard/AgentHub';
 import Workbench from '@/components/dashboard/Workbench';
 import Workspace from '@/components/dashboard/Workspace';
 import ChatCopilot from '@/components/dashboard/ChatCopilot';
+import PromptHub from '@/components/dashboard/PromptHub';
 
+// ==============================================================================
+// 🎨 组件：二级折叠菜单组
+// ==============================================================================
 const NavGroup = ({ title, children, defaultOpen = true }: { title: string, children: React.ReactNode, defaultOpen?: boolean }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
@@ -41,6 +46,50 @@ const NavGroup = ({ title, children, defaultOpen = true }: { title: string, chil
   );
 };
 
+// ==============================================================================
+// 💡 组件：Studio 左侧的图纸列表侧边栏 (Flow Explorer)
+// ==============================================================================
+const FlowListSidebar = () => {
+  const { activeFlowId, setActiveFlow } = useUIStore();
+  const [flows, setFlows] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/flows')
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') setFlows(data.data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div className="flex justify-center p-4"><Loader2 size={16} className="animate-spin text-slate-500" /></div>;
+  if (flows.length === 0) return <div className="text-center p-4 text-xs text-slate-600">资产库空空如也</div>;
+
+  return (
+    <div className="space-y-1">
+      {flows.map(f => (
+        <div 
+          key={f.id} 
+          onClick={() => setActiveFlow(f.id)}
+          className={`px-3 py-2.5 rounded-lg cursor-pointer transition-all flex flex-col gap-1 border ${
+            activeFlowId === f.id 
+              ? 'bg-blue-600/10 border-blue-500/30 text-blue-400' 
+              : 'bg-transparent border-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
+          }`}
+        >
+          <div className="text-xs font-bold truncate">{f.name}</div>
+          <div className="text-[9px] font-mono opacity-60 truncate">{f.id}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// ==============================================================================
+// 主界面：NexaFlow OS 壳子
+// ==============================================================================
 export default function NexaFlowOS() {
   const { currentView, setCurrentView, activeFlowId } = useUIStore();
   const { connectWs, logs } = useExecStore();
@@ -102,6 +151,7 @@ export default function NexaFlowOS() {
 
           <NavGroup title="Assets & Config">
             <NavItem id="assets" icon={<Archive size={16} />} label="Business Assets" />
+            <NavItem id="prompts" icon={<Quote size={16} />} label="Prompts" /> 
             <NavItem id="models" icon={<Cpu size={16} />} label="Models" />
             <NavItem id="skills" icon={<Wrench size={16} />} label="Skills" />
             <NavItem id="integrations" icon={<Blocks size={16} />} label="Integrations" />
@@ -126,50 +176,60 @@ export default function NexaFlowOS() {
 
       </div>
 
-      {/* 2. 主工作区 */}
+      {/* 2. 主工作区路由 */}
       <div className="flex-1 relative overflow-hidden flex flex-col bg-slate-900">
         {currentView === 'workspace' && <Workspace />}
         {currentView === 'chat' && <ChatCopilot />}
         {currentView === 'workbench' && <Workbench />}
         {currentView === 'agents' && <AgentHub />}
         {currentView === 'assets' && <AssetHub />}
+        {currentView === 'prompts' && <PromptHub />}
         {currentView === 'models' && <ModelHub />}
         {currentView === 'skills' && <SkillRegistry />}
         {currentView === 'integrations' && <IntegrationHub />}
         {currentView === 'monitor' && <MonitorHub />}
         {currentView === 'ledger' && <LedgerView />}
 
+        {/* 🌟 核心：Studio 的三栏式 IDE 布局 */}
         {currentView === 'studio' && (
-          <div className="flex-1 flex w-full h-full">
-            <div className="flex-1 relative">
-              <FlowCanvas />
-            </div>
-            {activeFlowId && (
-              <div className="w-[380px] border-l border-slate-800 bg-[#0B0F19] flex flex-col shrink-0 shadow-2xl relative z-10">
-                <div className="h-[45%] border-b border-slate-800 p-4 bg-black flex flex-col relative overflow-hidden group">
-                  <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-orange-500 to-transparent opacity-50"></div>
-                  <div className="flex justify-between items-center mb-3">
-                    <h2 className="text-[10px] font-bold text-orange-500 tracking-widest flex items-center gap-1.5">● PLAYSTREAM MONITOR</h2>
-                    <span className="text-[9px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded flex items-center gap-1 animate-pulse">Live</span>
-                  </div>
-                  <div className="flex-1 border border-slate-800 rounded bg-[#0a0a0a] flex items-center justify-center text-slate-600 text-xs font-mono relative overflow-hidden shadow-inner group-hover:border-slate-700 transition-colors">
-                     Waiting for Execution...
-                  </div>
+          <div className="flex-1 flex w-full h-full bg-[#0B0F19] overflow-hidden">
+            
+            {/* 中间栏：Flows Explorer */}
+            <div className="w-[280px] bg-[#0E121B] border-r border-slate-800/60 flex flex-col shrink-0 z-10 shadow-[5px_0_15px_rgba(0,0,0,0.2)]">
+              <div className="p-4 border-b border-slate-800/60 shrink-0">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-sm font-bold text-slate-200 flex items-center gap-2"><Network size={16} className="text-blue-500"/> Flows Explorer</h2>
+                  <button className="text-slate-400 hover:text-blue-400 transition-colors" title="新建空白流程图">
+                    <FilePlus2 size={16} />
+                  </button>
                 </div>
-                <div className="flex-1 p-4 flex flex-col">
-                  <h2 className="text-[10px] font-bold text-blue-500 tracking-widest mb-3 flex items-center gap-1.5">EXECUTION LOGS</h2>
-                  <div className="flex-1 bg-[#0a0a0a] border border-slate-800 rounded-lg p-3 font-mono text-[10px] text-slate-300 overflow-y-auto space-y-2.5 shadow-inner">
-                    {logs.length === 0 && <div className="text-slate-600">Waiting for task to start...</div>}
-                    {logs.map((log, idx) => (
-                      <div key={idx} className={`${log.includes('❌') || log.includes('🛑') ? 'text-red-400' : (log.includes('✅') ? 'text-green-400' : 'text-slate-300')}`}>
-                        {log}
-                      </div>
-                    ))}
-                    <div ref={logEndRef} />
-                  </div>
+                <div className="bg-[#050505] border border-slate-800 rounded-md px-3 py-1.5 flex items-center text-slate-500 focus-within:border-blue-500 transition-colors shadow-inner">
+                  <Search size={14} className="mr-2" />
+                  <input type="text" placeholder="搜索图纸..." className="bg-transparent border-none outline-none text-xs w-full text-slate-200 placeholder-slate-600" />
                 </div>
               </div>
-            )}
+
+              <div className="flex-1 overflow-y-auto p-3 custom-scrollbar">
+                <FlowListSidebar />
+              </div>
+            </div>
+
+            {/* 右侧大区：画布 (内部自带右侧大屏逻辑) */}
+            <div className="flex-1 relative flex flex-col min-w-0 bg-[#050505]">
+              {!activeFlowId ? (
+                <div className="w-full h-full flex flex-col items-center justify-center text-slate-500">
+                  <Network size={48} className="text-slate-800 mb-4 stroke-1"/>
+                  <h3 className="text-slate-300 font-bold mb-2 text-lg">No Flow Selected</h3>
+                  <p className="text-sm mb-6 max-w-sm text-center opacity-80">请在左侧文件树中选择一个业务流图纸，或点击右上角新建一张空白画布。</p>
+                  <button className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2 px-6 rounded-lg transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)]">
+                    + 创建新图纸 (New Flow)
+                  </button>
+                </div>
+              ) : (
+                <FlowCanvas />
+              )}
+            </div>
+
           </div>
         )}
       </div>

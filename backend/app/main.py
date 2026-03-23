@@ -44,7 +44,7 @@ async def get_system_meta_assets():
     扫描整个 SQLite 的存储状况，返回各域的表结构及数据量。
     极其坚固的防崩溃版本。
     """
-    domains = ["flows", "models", "skills", "integrations", "monitors", "chats", "agents", "traces", "cases", "workspaces"]
+    domains = ["flows", "models", "skills", "integrations", "monitors", "chats", "agents", "traces", "cases", "workspaces", "prompts"]
     meta_stats = []
     
     # 我们直接引入数据库 session，用原生的 COUNT() 查询，绝对不会因为 JSON 序列化报错！
@@ -417,6 +417,58 @@ async def get_system_agents():
 async def save_agent(agent: AgentConfig):
     FileStorage.save("agents", agent.dict(), agent.id)
     return {"status": "success", "msg": "数字员工配置已保存"}
+
+# ==============================================================================
+# 模块 E-3：提示词工程资产 API (Prompts)
+# ==============================================================================
+class PromptConfig(BaseModel):
+    id: str
+    name: str
+    desc: str
+    content: str
+    tags: list
+    version: str = "1.0"
+
+@app.get("/api/prompts")
+async def get_system_prompts():
+    """获取所有已持久化的提示词资产"""
+    prompts = FileStorage.list_all("prompts")
+    
+    if not prompts:
+        default_prompts = [
+            {
+                "id": "p_router_core", "name": "Intent Router 核心宪法", "desc": "定义了系统主脑如何解析用户意图，并动态输出 BPNL 协议。绝对不可随意修改。",
+                "content": "你是 NexaFlow OS 的核心中枢智能体。如果用户要求执行复杂任务，必须输出严格的 JSON 格式...",
+                "tags": ["System", "Routing", "BPNL"], "version": "1.0"
+            },
+            {
+                "id": "p_qa_agent", "name": "金牌客服答疑规范", "desc": "规定了售后专员必须使用的语气、赔偿红线及反问话术。",
+                "content": "作为金牌客服，你的语气必须专业且克制。最高退款金额不得超过 {max_refund_amount}。在任何情况下不得向用户承认系统存在漏洞...",
+                "tags": ["Business", "Customer Service"], "version": "2.1"
+            },
+            {
+                "id": "p_data_extractor", "name": "非结构化数据抽取模板", "desc": "用于从网页快照中提取价格、库存等关键指标，并输出规整的 JSON。",
+                "content": "请分析传入的 DOM 或截图，提取以下信息并严格以 JSON 数组返回：[{\"product_name\": \"\", \"price\": 0.0}]...",
+                "tags": ["Utility", "Extraction"], "version": "1.0"
+            }
+        ]
+        for p in default_prompts:
+            FileStorage.save("prompts", p, p["id"])
+        prompts = default_prompts
+
+    return {"status": "success", "data": prompts}
+
+@app.post("/api/prompts")
+async def save_prompt(prompt: PromptConfig):
+    FileStorage.save("prompts", prompt.dict(), prompt.id)
+    return {"status": "success", "msg": "提示词配置已固化至数据库"}
+
+
+# 💡 记得修改 main.py 里原有的 /api/assets/meta 接口，把 prompts 加进去！
+@app.get("/api/assets/meta")
+async def get_system_meta_assets():
+    domains = ["flows", "models", "skills", "integrations", "monitors", "chats", "agents", "traces", "cases", "workspaces", "prompts"] # <--- 新增 "prompts"
+    meta_stats = []
 
 # ==============================================================================
 # 模块 F：第三方生态集成 (Integrations)
