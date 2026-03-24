@@ -20,6 +20,7 @@
       <img src="https://img.shields.io/badge/Download_for_Windows_(Coming_Soon)-0B0F19?style=for-the-badge&logo=windows&logoColor=slate&labelColor=2C323E" alt="Download Windows" height="36" style="opacity: 0.6">
     </a>
   </p>
+  <img width="1512" height="895" alt="a3a62c8cc57b9205e7c1f95a400f7fff" src="https://github.com/user-attachments/assets/70b92847-7efb-490e-8ecd-bcf7fab4cbfd" />
 
   <p>
     <a href="#english-version"><b>English Documentation</b></a> • 
