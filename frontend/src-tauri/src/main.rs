@@ -10,15 +10,15 @@ fn main() {
         .plugin(tauri_plugin_shell::init())
         // 2. 在 setup 钩子中静默拉起 Python 引擎
         .setup(|app| {
-            println!("🚀 NexaFlow OS 桌面端启动中...");
+            println!("🚀 GridsPilot OS 桌面端启动中...");
             
             // 获取我们在 tauri.conf.json 里配置好的 externalBin
-            let sidecar_command = app.shell().sidecar("nexaflow-engine").unwrap();
+            let sidecar_command = app.shell().sidecar("GridsPilot-engine").unwrap();
             
             // 唤醒引擎！(_child 会被 Tauri 自动管理生命周期，关 App 时自动杀进程)
             let (mut rx, _child) = sidecar_command
                 .spawn()
-                .expect("⚠️ 唤醒 Python 引擎失败！请检查 bin 目录下是否有 nexaflow-engine 且赋予了执行权限");
+                .expect("⚠️ 唤醒 Python 引擎失败！请检查 bin 目录下是否有 GridsPilot-engine 且赋予了执行权限");
 
             // 开启异步线程，把 Python 的打印信息输出到 Rust 终端
             tauri::async_runtime::spawn(async move {

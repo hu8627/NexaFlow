@@ -3,14 +3,14 @@ from app.execution.llm import ask_llm
 from app.core.storage import FileStorage
 
 # ==============================================================================
-# NexaFlow 核心宪法：意图路由引擎 (Intent Router)
+# GridsPilot 核心宪法：意图路由引擎 (Intent Router)
 # 设计哲学：坚决剥夺大模型“凭空捏造”业务流程的权力。
 # 所有的业务流 (SOP) 必须是人类架构师在 Studio 中画好、并固化在 FileDB 里的真实资产。
 # Router 的唯一职责是：理解自然语言，并从真实资产库中进行【精准匹配 (Semantic Routing)】。
 # ==============================================================================
 
 MASTER_ROUTER_PROMPT = """
-你是 NexaFlow OS 的核心中枢智能体 (Intent Router)。
+你是 GridsPilot OS 的核心中枢智能体 (Intent Router)。
 你的唯一职责是：理解用户的自然语言输入，并从系统现有的【已认证业务流程库 (SOP Assets)】中，精准匹配最合适的流程。
 
 【判断逻辑】：

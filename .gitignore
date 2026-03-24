@@ -61,7 +61,7 @@ pnpm-debug.log*
 # 5. Tauri 桌面端编译产物 (防体积爆炸)
 # =========================
 frontend/src-tauri/target/
-frontend/src-tauri/bin/nexaflow-engine*
+frontend/src-tauri/bin/GridsPilot-engine*
 frontend/src-tauri/bin/*.exe
 
 # =========================

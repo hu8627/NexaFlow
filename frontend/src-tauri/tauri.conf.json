@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "NexaFlow",
+  "productName": "GridsPilot",
   "version": "0.1.0",
-  "identifier": "com.nexaflow.os",
+  "identifier": "com.GridsPilot.os",
   "build": {
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build",
@@ -12,7 +12,7 @@
   "app": {
     "windows":[
       {
-        "title": "NexaFlow OS",
+        "title": "GridsPilot OS",
         "width": 1280,
         "height": 800,
         "resizable": true,
@@ -35,7 +35,7 @@
       "icons/icon.ico"
     ],
     "externalBin":[
-      "bin/nexaflow-engine"
+      "bin/GridsPilot-engine"
     ]
   }
 }

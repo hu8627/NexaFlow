@@ -12,10 +12,10 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 # 1. 数据库路径配置 (保持 Local-First，存放在用户主目录)
 # ==============================================================================
 USER_HOME = str(Path.home())
-DB_DIR = os.path.join(USER_HOME, ".nexaflow", "data")
+DB_DIR = os.path.join(USER_HOME, ".GridsPilot", "data")
 os.makedirs(DB_DIR, exist_ok=True)
 
-DB_PATH = os.path.join(DB_DIR, "nexaflow_v2.db")
+DB_PATH = os.path.join(DB_DIR, "GridsPilot_v2.db")
 DATABASE_URL = f"sqlite:///{DB_PATH}"
 
 # ==============================================================================

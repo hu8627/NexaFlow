@@ -96,17 +96,17 @@
     <circle cx="25" cy="140" r="3" fill="#c084fc"/><text font-family="system-ui, sans-serif" font-size="13" fill="#e9d5ff" x="38" y="144">代码 Review 与多专家协作</text>
   </g>
 
-  <!-- [Q3] NexaFlow 混合模式 (Bottom-Left / The Sweet Spot) -->
+  <!-- [Q3] GridsPilot 混合模式 (Bottom-Left / The Sweet Spot) -->
   <!-- 💡 核心视觉高亮区域 -->
   <g transform="translate(130, 315)" filter="url(#glowEmerald)">
     <rect width="300" height="185" rx="12" fill="url(#gradEmerald)" stroke="#10b981" stroke-width="2"/>
     <rect x="0" y="0" width="8" height="185" fill="#10b981" rx="4"/>
     
-    <text font-family="monospace" font-size="10" font-weight="700" fill="#34d399" x="20" y="25">[ NEXAFLOW OS CORE ]</text>
+    <text font-family="monospace" font-size="10" font-weight="700" fill="#34d399" x="20" y="25">[ GridsPilot OS CORE ]</text>
     <text font-family="system-ui, sans-serif" font-size="18" font-weight="800" fill="#ecfdf5" x="20" y="50">PNSA 混合编排模式</text>
     
     <circle cx="25" cy="80" r="4" fill="#34d399"/><text font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#a7f3d0" x="38" y="84">确定性骨架 + 局部自治</text>
-    <circle cx="25" cy="110" r="3" fill="#6ee7b7"/><text font-family="system-ui, sans-serif" font-size="13" fill="#d1fae5" x="38" y="114">金融贷款/KYC 合规审批</text>
+    <circle cx="25" cy="110" r="3" fill="#6ee7b7"/><text font-family="system-ui, sans-serif" font-size="13" fill="#d1fae5" x="38" y="114">金融贷款/合规审批</text>
     <circle cx="25" cy="140" r="3" fill="#6ee7b7"/><text font-family="system-ui, sans-serif" font-size="13" fill="#d1fae5" x="38" y="144">政务/电商带人机熔断流转</text>
     <circle cx="25" cy="170" r="3" fill="#6ee7b7"/><text font-family="system-ui, sans-serif" font-size="13" fill="#d1fae5" x="38" y="174">IT 自动化工单系统</text>
   </g>
@@ -125,9 +125,9 @@
   <rect x="200" y="635" width="10" height="10" rx="2" fill="#a855f7" opacity="0.8"/>
   <text font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8" x="218" y="644">多步产物 + 专家分工 <tspan fill="#c084fc">→ 模式 B</tspan></text>
 
-  <!-- NexaFlow 图例 -->
+  <!-- GridsPilot 图例 -->
   <rect x="440" y="605" width="10" height="10" rx="2" fill="#10b981" />
-  <text font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8" x="458" y="614">严合规约束 + 需局部推理拦截 <tspan font-weight="700" fill="#34d399">→ NexaFlow 混合编排</tspan></text>
+  <text font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8" x="458" y="614">严合规约束 + 需局部推理拦截 <tspan font-weight="700" fill="#34d399">→ GridsPilot 混合编排</tspan></text>
 
   <!-- 盲区图例 -->
   <rect x="440" y="635" width="10" height="10" rx="2" fill="#ef4444" opacity="0.8"/>

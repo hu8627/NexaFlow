@@ -1,6 +1,6 @@
-#  Copyright (C) 2026 NexaFlow Team (charismamikoo@gmail.com)
-#  This file is part of NexaFlow.
-#  NexaFlow is free software: you can redistribute it and/or modify
+#  Copyright (C) 2026 GridsPilot Team (charismamikoo@gmail.com)
+#  This file is part of GridsPilot.
+#  GridsPilot is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published by
 #  the Free Software Foundation, either version 3 of the License.
 import asyncio
@@ -19,7 +19,7 @@ from app.engine.router_agent import process_chat_intent
 from app.core.storage import FileStorage
 from app.execution.llm import ask_llm  # 用于迭代 Optimizer Agent 与群聊 Agent
 
-app = FastAPI(title="NexaFlow Orchestration Engine", version="1.0.0")
+app = FastAPI(title="GridsPilot Orchestration Engine", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -31,7 +31,7 @@ app.add_middleware(
 
 @app.get("/")
 async def health_check():
-    return {"status": "NexaFlow Engine is Alive", "version": "1.0.0"}
+    return {"status": "GridsPilot Engine is Alive", "version": "1.0.0"}
 
 
 # ==============================================================================
@@ -224,7 +224,7 @@ async def workspace_chat_agent(req: WorkspaceChatRequest):
         memory_context += f"[{sender}]: {msg.get('text')}\n"
 
     system_prompt = f"""
-    你是 NexaFlow OS 里的数字员工。
+    你是 GridsPilot OS 里的数字员工。
     你的名字是：{agent_name}
     你的角色和能力边界是：{agent_persona}
     
@@ -516,7 +516,7 @@ async def get_system_prompts():
         default_prompts = [
             {
                 "id": "p_router_core", "name": "Intent Router 核心宪法", "desc": "定义了系统主脑如何解析用户意图，并动态输出 BPNL 协议。绝对不可随意修改。",
-                "content": "你是 NexaFlow OS 的核心中枢智能体。如果用户要求执行复杂任务，必须输出严格的 JSON 格式...",
+                "content": "你是 GridsPilot OS 的核心中枢智能体。如果用户要求执行复杂任务，必须输出严格的 JSON 格式...",
                 "tags": ["System", "Routing", "BPNL"], "version": "1.0"
             },
             {

@@ -121,7 +121,7 @@ export default function Workspace() {
         <div className="h-14 border-b border-slate-800/60 px-4 flex items-center justify-between cursor-pointer hover:bg-slate-800/30 transition-colors">
           <div className="font-bold text-sm text-slate-100 flex items-center gap-2 truncate">
             <div className="w-6 h-6 bg-indigo-600 rounded flex items-center justify-center text-xs text-white shadow-[0_0_15px_rgba(79,70,229,0.5)]">N</div>
-            NexaFlow HQ
+            GridsPilot HQ
           </div>
           <MoreVertical size={16} className="text-slate-500" />
         </div>

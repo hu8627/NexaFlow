@@ -1,7 +1,7 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'NexaFlow OS',
+  title: 'GridsPilot OS',
   description: 'AI-Native Business OS',
 }
 

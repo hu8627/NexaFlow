@@ -243,7 +243,7 @@ export default function ModelHub() {
                   className="w-full bg-[#0a0a0a] border border-blue-500/50 rounded-lg px-4 py-2.5 text-xs text-slate-200 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/50 transition-all font-mono shadow-[0_0_10px_rgba(37,99,235,0.1)]" 
                 />
                 <div className="text-[9px] text-slate-500 mt-2">
-                  Key 将被加密存储于您本地的 <code>~/.nexaflow/data/nexaflow.db</code> 数据库中，绝对不会上传云端。
+                  Key 将被加密存储于您本地的 <code>~/.GridsPilot/data/GridsPilot.db</code> 数据库中，绝对不会上传云端。
                 </div>
               </div>
 

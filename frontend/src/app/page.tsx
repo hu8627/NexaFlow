@@ -1,6 +1,6 @@
-//  Copyright (C) 2024 NexaFlow Team (charismamikoo@gmail.com)
-//  This file is part of NexaFlow.
-//  NexaFlow is free software: you can redistribute it and/or modify
+//  Copyright (C) 2024 GridsPilot Team (charismamikoo@gmail.com)
+//  This file is part of GridsPilot.
+//  GridsPilot is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Affero General Public License as published by
 //  the Free Software Foundation, either version 3 of the License.
 'use client';
@@ -88,9 +88,9 @@ const FlowListSidebar = () => {
 };
 
 // ==============================================================================
-// 主界面：NexaFlow OS 壳子
+// 主界面：GridsPilot OS 壳子
 // ==============================================================================
-export default function NexaFlowOS() {
+export default function GridsPilotOS() {
   const { currentView, setCurrentView, activeFlowId } = useUIStore();
   const { connectWs, logs } = useExecStore();
   const logEndRef = useRef<HTMLDivElement>(null);
@@ -124,7 +124,7 @@ export default function NexaFlowOS() {
         <div className="p-4 pt-6">
           <div className="flex items-center gap-3 mb-6 px-2">
             <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center text-sm font-black text-white shadow-[0_0_15px_rgba(37,99,235,0.4)]">N</div>
-            <h1 className="font-bold text-slate-100 tracking-wide text-lg">NexaFlow</h1>
+            <h1 className="font-bold text-slate-100 tracking-wide text-lg">GridsPilot</h1>
           </div>
           
           <div className="bg-slate-900 border border-slate-800 rounded-md px-3 py-1.5 flex items-center justify-between text-slate-500 hover:border-slate-700 transition-colors cursor-text">

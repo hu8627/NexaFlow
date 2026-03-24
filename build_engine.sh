@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ============================================================================
-# NexaFlow 引擎自动化构建与注入脚本 (The Engine Injector)
+# GridsPilot 引擎自动化构建与注入脚本 (The Engine Injector)
 # 功能：一键打包 Python 后端 -> 自动识别系统芯片 -> 注入 Tauri 客户端
 # ============================================================================
 
@@ -16,7 +16,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 echo -e "${BLUE}=================================================${NC}"
-echo -e "${BLUE}🚀 启动 NexaFlow 引擎构建与注入程序...${NC}"
+echo -e "${BLUE}🚀 启动 GridsPilot 引擎构建与注入程序...${NC}"
 echo -e "${BLUE}=================================================${NC}"
 
 # 1. 自动检测当前操作系统的目标三元组 (Tauri 需要的后缀)
@@ -55,7 +55,7 @@ if ! command -v pyinstaller &> /dev/null; then
 fi
 
 # 执行打包命令，强制覆盖 (-y)，单文件 (--onefile)
-pyinstaller -y --onefile run.py -n nexaflow-engine
+pyinstaller -y --onefile run.py -n GridsPilot-engine
 
 echo -e "${GREEN}✓ 后端引擎编译完成！${NC}"
 cd ..
@@ -68,11 +68,11 @@ mkdir -p frontend/src-tauri/bin
 
 # 构造源文件路径和目标文件路径
 if [ "$OS_NAME" = "MINGW32_NT" ] || [ "$OS_NAME" = "MINGW64_NT" ]; then
-    SRC_FILE="backend/dist/nexaflow-engine.exe"
-    DEST_FILE="frontend/src-tauri/bin/nexaflow-engine-${TAURI_TARGET}.exe"
+    SRC_FILE="backend/dist/GridsPilot-engine.exe"
+    DEST_FILE="frontend/src-tauri/bin/GridsPilot-engine-${TAURI_TARGET}.exe"
 else
-    SRC_FILE="backend/dist/nexaflow-engine"
-    DEST_FILE="frontend/src-tauri/bin/nexaflow-engine-${TAURI_TARGET}"
+    SRC_FILE="backend/dist/GridsPilot-engine"
+    DEST_FILE="frontend/src-tauri/bin/GridsPilot-engine-${TAURI_TARGET}"
 fi
 
 if [ ! -f "$SRC_FILE" ]; then
@@ -94,9 +94,9 @@ echo -e "${GREEN}✓ 引擎已成功注入: $DEST_FILE${NC}"
 # 4. 清理编译垃圾 (可选，保持目录整洁)
 echo -e "\n${YELLOW}🧹 正在清理构建过程产生的垃圾文件...${NC}"
 rm -rf backend/build/
-rm -rf backend/nexaflow-engine.spec
+rm -rf backend/GridsPilot-engine.spec
 
 echo -e "\n${BLUE}=================================================${NC}"
-echo -e "${GREEN}🎉 恭喜！NexaFlow 引擎已成功编译并完成注入！${NC}"
+echo -e "${GREEN}🎉 恭喜！GridsPilot 引擎已成功编译并完成注入！${NC}"
 echo -e "${BLUE}👉 下一步: 请在 frontend 目录下运行 'npm run tauri dev' 启动桌面端。${NC}"
 echo -e "${BLUE}=================================================${NC}\n"

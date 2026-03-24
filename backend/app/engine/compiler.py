@@ -10,7 +10,7 @@ from app.execution.skills.browser_skill import execute_browser_task
 
 class BPNLCompiler:
     """
-    NexaFlow 核心编译器：BPNL Schema -> LangGraph StateGraph (Async Mode)
+    GridsPilot 核心编译器：BPNL Schema -> LangGraph StateGraph (Async Mode)
     """
     def __init__(self, flow_schema: FlowSchema):
         self.flow = flow_schema
@@ -153,7 +153,7 @@ class BPNLCompiler:
             self.workflow.set_entry_point(self.flow.nodes[0].id)
 
         # 4. 编译输出
-        print(f"\n⚙️ NexaFlow 编译器: 流程 [{self.flow.name}] 编译完成！包含 {len(self.flow.nodes)} 个节点。")
+        print(f"\n⚙️ GridsPilot 编译器: 流程 [{self.flow.name}] 编译完成！包含 {len(self.flow.nodes)} 个节点。")
         if interrupt_nodes:
             print(f"⚠️ 挂载 Auditor 拦截点: {interrupt_nodes}")
             
