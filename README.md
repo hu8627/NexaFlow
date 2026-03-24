@@ -1,25 +1,19 @@
 <div align="center">
   <h1>NexaFlow: An AI-Native Business OS</h1>
   <p><b>Bridging the gap between Autonomous Agents and Enterprise Workflows.</b></p>
-  <p><i>A highly visual, Human-in-the-Loop (HITL) orchestration framework for complex AI tasks.</i></p>
+
+  <!-- 增加一个明显的下载引导区 -->
+  <div style="background-color: #f6f8fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+    <p style="color: #555; margin-bottom: 10px;"><b>Get Started with Desktop Client</b></p>
+    <a href="https://github.com/hu8627/nexaflow/releases/latest" target="_blank">
+      <img src="https://img.shields.io/badge/Download_for_macOS-007AFF?style=for-the-badge&logo=apple&logoColor=white" height="45">
+    </a>
+    <a href="#" style="cursor: not-allowed; filter: grayscale(100%);">
+      <img src="https://img.shields.io/badge/Windows_Version-Coming_Soon-lightgrey?style=for-the-badge&logo=windows" height="45">
+    </a>
+  </div>
 
   <br>
-
-  > **"This might be closer to the true form of future human-AI collaboration: <br> AI executes, humans supervise and provide the safety net."**
-  > 
-  > **"这可能更接近未来人类与 AI 协同工作的真实形态——AI 负责执行，人类负责监督和兜底。"**
-
-  <br>
-
-  <p align="center">
-    <!-- 替换 your-username 为你的真实 GitHub 账号 -->
-    <a href="https://github.com/hu8627/nexaflow/releases/latest" target="_blank">
-      <img src="https://img.shields.io/badge/Download_for_macOS_(M1/M2/M3)-0B0F19?style=for-the-badge&logo=apple&logoColor=white&labelColor=2C323E" alt="Download macOS DMG" height="36">
-    </a>
-    <a href="https://github.com/hu8627/nexaflow/releases/latest" target="_blank">
-      <img src="https://img.shields.io/badge/Download_for_Windows_(Coming_Soon)-0B0F19?style=for-the-badge&logo=windows&logoColor=slate&labelColor=2C323E" alt="Download Windows" height="36" style="opacity: 0.6">
-    </a>
-  </p>
   <img width="1512" height="895" alt="a3a62c8cc57b9205e7c1f95a400f7fff" src="https://github.com/user-attachments/assets/70b92847-7efb-490e-8ecd-bcf7fab4cbfd" />
 
   <p>
