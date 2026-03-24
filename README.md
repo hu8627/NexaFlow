@@ -1,163 +1,197 @@
-# 🌊 NexaFlow: An AI-Native Business OS
-
 <div align="center">
-  <p><b>Bridging the gap between Autonomous Agents and Enterprise Governance.</b></p>
-  <p><b>连接自主智能体与企业级治理边界的桥梁。</b></p>
-  <p><i>A highly visual, Human-in-the-Loop (HITL) orchestration framework for the Agentic Era.</i></p>
+  <h1>NexaFlow: An AI-Native Business OS</h1>
+  <p><b>Bridging the gap between Autonomous Agents and Enterprise Workflows.</b></p>
+  <p><i>A highly visual, Human-in-the-Loop (HITL) orchestration framework for complex AI tasks.</i></p>
 
   <br>
 
-  > **"AI executes, Humans supervise, Assets persist, and Guards govern."**
-  > <br>
-  > **"AI 负责执行，人类负责监督，资产负责沉淀，Guards 负责治理。"**
-  
-  <img width="1200" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" alt="NexaFlow Studio" src="https://github.com/user-attachments/assets/d8887b96-13ad-4d0a-9b05-b771927ed317" />
+  > **"This might be closer to the true form of future human-AI collaboration: <br> AI executes, humans supervise and provide the safety net."**
+  > 
+  > **"这可能更接近未来人类与 AI 协同工作的真实形态——AI 负责执行，人类负责监督和兜底。"**
+
+  <br>
+
+  <p align="center">
+    <!-- 替换 your-username 为你的真实 GitHub 账号 -->
+    <a href="https://github.com/hu8627/nexaflow/releases/latest" target="_blank">
+      <img src="https://img.shields.io/badge/Download_for_macOS_(M1/M2/M3)-0B0F19?style=for-the-badge&logo=apple&logoColor=white&labelColor=2C323E" alt="Download macOS DMG" height="36">
+    </a>
+    <a href="https://github.com/hu8627/nexaflow/releases/latest" target="_blank">
+      <img src="https://img.shields.io/badge/Download_for_Windows_(Coming_Soon)-0B0F19?style=for-the-badge&logo=windows&logoColor=slate&labelColor=2C323E" alt="Download Windows" height="36" style="opacity: 0.6">
+    </a>
+  </p>
 
   <p>
-    <a href="#-the-philosophy"><b>🧠 Philosophy</b></a> • 
-    <a href="#-pnsa-architecture"><b>🏗️ Architecture</b></a> • 
-    <a href="#-core-features"><b>✨ Features</b></a> • 
-    <a href="#-quick-start"><b>🚀 Quick Start</b></a>
+    <a href="#english-version"><b>English Documentation</b></a> • 
+    <a href="#中文说明文档"><b>中文说明文档</b></a>
   </p>
 </div>
 
 ---
 
-## 🧠 The Philosophy | 核心哲学: Management, Collaboration & Evolution
+<h2 id="english-version">English Version</h2>
 
-NexaFlow is built on the belief that **Intelligence is a commodity, but Governance is a Moat.** We translate classical human organizational wisdom into the AI stack:
+### Why I built this?
 
-NexaFlow 的核心理念是：**智力是商品，治理才是护城河。** 我们将经典的管理学智慧融入 AI 架构：
+When attempting to deploy AI Agents (e.g., LLM-based web scrapers, automated data entry scripts) into real-world business scenarios, I encountered a massive pain point: **The execution process is too much of a "black box" and the fault tolerance is extremely low.**
 
-1.  **Separation of Powers (三权分立):**
-    *   **The Execution (Agents/执行权):** The "Muscle." High-performance reasoning nodes focused on task completion. (负责干活，追求效能)
-    *   **The Governance (Guards/治理权):** The "Judge." An Agentic monitor that audits every I/O, issues warnings, and provides human-intervenable suggestions. (负责审计，提供预警与建议)
-    *   **The Truth (Assets/定义权):** The "Legislature." Schema-enforced shared memory that ensures data integrity. (负责事实，确保记忆的一致性与结构化)
+Current solutions face a dilemma:
+*   **Code-only Agents (e.g., AutoGPT/Devin)**: Once they run, you can only stare at dense terminal logs. If it gets stuck on a web form or encounters a distorted CAPTCHA, the entire task crashes, leaving you no chance to intervene.
+*   **Traditional Workflows (e.g., Coze/Dify)**: While they offer node graphs, they lack fine-grained monitoring and human-takeover mechanisms for long-running asynchronous tasks that require "embodied actions."
 
-2.  **DMAIC Iteration (持续演进):**
-    NexaFlow follows the **Define-Measure-Analyze-Improve-Control** loop. By logging every intervention in our **Governed Ledger**, the system provides a "feedback thread" for the **Optimizer Agent** to auto-refine business logic.
-    系统遵循 **DMAIC** 闭环。通过在**治理账本**中记录每一次人工干预，为“优化器 Agent”提供反馈，实现业务逻辑的自动化重写与进化。
+Thus, I conceived and built **NexaFlow**.
 
----
+The core idea is simple: **Draw the Agent's execution logic as a visible blueprint (DAG) or execute according to a confirmed logic, and place a "brake (Auditor)" at critical nodes. If the AI hits its capability boundary, freeze the frame, push it to a human, let the human click a button in the console, and the AI resumes running with the human's input.**
 
-## 🏗️ PNSA Architecture | 架构范式
+As the project slogan states, NexaFlow does not pursue blind "full automation" but strives to build an extremely elegant **Human-in-the-Loop (HITL) Workbench**.
 
-NexaFlow’s core is the **PNSA Paradigm**, ensuring that AI's generalized intelligence is contained within system-controlled "cages."
+### The Paradigm Shift (Why NexaFlow Wins)
 
-### 🔄 The Governance Flow | 治理数据流
-Below is how NexaFlow manages the interaction between execution and memory:
+<div align="center">
+  <img src="./docs/architecture-quadrant.svg" alt="NexaFlow Architecture Quadrant" width="800"/>
+</div>
 
-```mermaid
-graph TD
-    subgraph "User Layer (The Supervisor / 人类监督层)"
-        H[Human Auditor / 人类审计员]
-    end
+NexaFlow positions itself in the ultimate "Sweet Spot" for enterprise AI: **Deterministic Skeletons + Local Autonomy**. It avoids the brittle nature of fully dynamic topologies while retaining the flexibility of LLM reasoning within strictly governed boundaries.
 
-    subgraph "Governance Layer (The Guards Agent / 治理层)"
-        G{Guards / 策略护栏}
-        W[Warning & Suggestion / 预警与建议]
-    end
+### Core Features
 
-    subgraph "Execution Layer (The PNSA Engine / 执行层)"
-        A[Agent Node / 智能体节点]
-        S[Skill & Tool Call / 原子技能]
-    end
+1. **Local-First Desktop App**: NexaFlow is not just a web app; it's packaged as a lightweight native desktop client using **Tauri & Rust**. Zero-setup, absolute data privacy. All your flows, API keys, and ledgers are stored securely on your local machine (`~/.nexaflow`).
+2. **100% Execution Visibility**: Say goodbye to staring at terminal strings. NexaFlow's frontend provides a split-screen `Studio`: the left side shows the glowing, flowing node graph, and the right side is a live stream monitor.
+3. **Elegant Human-in-the-Loop Workbench**: When orchestrating nodes, you can enable `interrupt_before: true`. When the AI reaches here (e.g., before writing sensitive data to CRM), the workflow suspends. The task appears in your `Inbox (Workbench)`, waiting for your personal click to "resume."
+4. **Chat-to-SOP (Dynamic Intent Routing)**: Describe a complex task in natural language in the `Copilot` window. The underlying LLM precisely matches and retrieves the verified BPNL (JSON) protocol, rendering an interactive business flowchart instantly.
 
-    subgraph "Memory Layer (Governed Assets / 受控记忆层)"
-        M[(SQLite / 资产账本)]
-        SC[Schema Enforcement / 格式校验]
-    end
+### Core Architecture: The PNSA Paradigm
 
-    %% Flow Logic
-    A -->|Request Access| G
-    G -->|Validate Schema| SC
-    SC -->|Fetch/Write| M
-    G -- "Alert / Block" --> H
-    H -- "Instruction / Intervention" --> A
-    G -- "Optimization Advice" --> W
-    W -.-> A
-```
+NexaFlow's underlying philosophy is: **AI's generalized intelligence must be contained within system-controlled cages.** Therefore, NexaFlow invented the **PNSA Architecture**, restructuring workflows and LLM Agents:
 
-### The P-N-S-A Breakdown:
-*   **[ P ] Parametric (参数化)**: Nodes dynamically mount Agents, Models, and Skills. (节点可动态挂载数字员工与模型)
-*   **[ N ] Nodal (节点化)**: Physical isolation of context boundaries to prevent hallucinations. (物理隔离上下文，防止逻辑发散)
-*   **[ S ] Supervisor (监督者)**: Edge-level logic that routes flows based on real-time outcomes. (基于执行结果动态路由的卫兵)
-*   **[ A ] Auditor (审计员)**: **The Ultimate Moat.** Forces suspension at high-risk nodes, returning power to humans. (系统的终极熔断机制，将决策权还给人类)
+*   **[ P ] Parametric**: Nodes dynamically mount specific Agents, underlying Models, and atomic Skills.
+*   **[ N ] Nodal**: Physical isolation of context boundaries. Splitting long-chain tasks into discrete nodes prevents LLMs from falling into infinite loops.
+*   **[ S ] Supervisor**: The dynamic guard on the edges. Based on the previous Agent's execution result, it dynamically decides the next route.
+*   **[ A ] Auditor (The Ultimate Moat)**: Facing high-risk nodes (e.g., writing to CRM), the engine is forcefully suspended, returning decision-making power to humans.
 
 ---
 
-## ✨ Core Features | 核心特性
+<br>
 
-1.  **💻 Local-First OS (本地优先)**: Packaged via **Tauri & Rust**. Absolute data privacy. All Flows and Keys are stored in your local `~/.nexaflow` SQLite. (下载即用，零配置，所有资产 100% 本地存储)
-2.  **👀 100% Execution Visibility (全流程可视)**: A split-screen `Studio` providing a real-time glowing node graph and a live execution monitor. (双分屏工作室：左侧发光流转图，右侧实况监控屏，告别黑盒执行)
-3.  **🛑 Human-in-the-Loop Workbench (人在回路工作台)**: Enable `interrupt_before: true` to freeze AI at critical nodes and push tasks to your **Inbox** for manual intervention. (在关键节点一键开启“刹车”，AI 遇阻时定格画面，等待人类审批或协助)
-4.  **💬 Chat-to-SOP (自然语言生成流程)**: Describe a task; the **Copilot** generates a BPNL (Business Process Node Language) protocol and renders it instantly. (用嘴画图：自然语言描述任务，瞬间生成可二次修改的 BPNL 工业级流程图)
+<h2 id="中文说明文档">中文说明文档</h2>
+
+### 为什么做这个项目？
+
+在尝试将 AI Agent（如基于大模型的网页操控、自动化录入脚本）落地到真实的业务场景时，我遇到了一个巨大的痛点：**执行过程太“黑盒”了，且容错率极低。**
+
+现有的方案往往面临两难：
+*   **纯代码 Agent (如 AutoGPT/Devin)**：一旦运行，你只能在终端里看着密密麻麻的 Log。如果它在一个表单页面卡住了，或者遇到了一个极度扭曲的验证码，整个任务直接崩溃，你连介入帮忙的机会都没有。
+*   **传统 Workflow (如 Coze/Dify)**：虽然有连线图，但对这种需要“具身操作”的长时间异步任务，缺乏细粒度的监控和人工接管机制。
+
+因此，我构思并写下了 **NexaFlow**。
+
+它的核心思路很简单：**把 Agent 的执行逻辑画成可见的图纸 (DAG) 或者按照已确认的执行逻辑执行，并且在关键节点挂上一个“刹车 (Auditor)”。如果 AI 遇到了它的能力边界，把画面定格推给人类，人类在控制台点一下，AI 带着人类的输入继续跑。**
+
+正如项目标语所言，NexaFlow 不追求盲目的“全自动”，而是致力于打造一个极其优雅的**人机协同工作台 (Human-in-the-Loop Workbench)**。
+
+### 范式转移：为什么企业需要 NexaFlow？
+
+<div align="center">
+  <img src="./docs/architecture-quadrant.svg" alt="NexaFlow 架构象限图" width="800"/>
+</div>
+
+NexaFlow 将自己定位在企业级 AI 落地的“甜点区”：**确定性骨架 + 局部自治**。它避开了全自动拓扑生成极易崩溃的“盲区”，同时利用大模型保留了节点内部的推理灵活性，并辅以绝对安全的人机熔断机制。
+
+### 核心特性 (Core Features)
+
+1. **本地优先的桌面操作系统 (Local-First App)**：NexaFlow 不仅支持云端部署，更通过 **Tauri + Rust** 封装成了极度轻量的原生桌面客户端。下载即用，零配置门槛。所有的流程资产、大模型密钥 100% 存在本地 SQLite 数据库中，绝对守护企业隐私。支持一键打包为 `.dmg` 或 `.exe` 独立分发。
+2. **100% 可视化的执行过程**：NexaFlow 提供了双分屏的 `Studio`：左侧是发光的矩阵式流转节点图，右侧是实况推流大屏，彻底告别执行黑盒。
+3. **优雅的人机接管 (Workbench)**：在编排节点时，你可以开启 `interrupt_before: true`。当 AI 走到高危节点前，流程会安全挂起 (Suspended)。任务会出现在你的 `Inbox (Workbench)` 里，等待你亲自审批、补充参数并点击“确认放行”。
+4. **Chat-to-SOP (意图路由检索)**：在 `Copilot` 窗口中用自然语言描述任务，底层的 LLM 会精准检索资产库中已认证的 BPNL 协议，并在前端瞬间渲染成可一键执行的业务流程图。
+
+### 核心架构：PNSA 范式
+
+NexaFlow 的底层哲学是：**AI 的泛化智力必须被关进系统控制的笼子里。** 为此，NexaFlow 独创了 **PNSA 架构**：
+
+*   **[ P ] Parametric (参数化)**：节点内可动态挂载具体的数字员工 (Agent)、底层模型 (Model) 和原子能力 (Skills)。
+*   **[ N ] Nodal (节点化)**：物理隔离上下文边界，彻底防止大模型在复杂任务中陷入“发散与死循环”。
+*   **[ S ] Supervisor (监督者)**：连线上的动态卫兵。根据前置 Agent 的执行结果动态决定是走主干流水线，还是掉入异常处理分支。
+*   **[ A ] Auditor (审计与熔断)**：**系统的终极护城河。** 面对高危物理或数据节点，引擎将被强制挂起，将决策权和物理按键交还给人类。
 
 ---
 
-## 🛠️ Tech Stack | 技术栈
+## The Tech Stack (技术栈)
 
-| Component / 组件 | Technology / 技术 |
-| :--- | :--- |
-| **Desktop Shell** | `Tauri 2.0` + `Rust` (Native Sidecar) |
-| **Cockpit (FE)** | `Next.js 14` + `React Flow` + `Zustand` |
-| **Orchestrator (BE)** | `FastAPI` + `LangGraph` + `LiteLLM` |
-| **Memory/Storage** | `SQLite` via `SQLAlchemy` (Typed Schema) |
+NexaFlow 采用了现代化的架构，支持 Web 端轻量部署与 Tauri 桌面端原生运行（Sidecar 伴生模式）。
+
+*   **Desktop Shell**: `Tauri 2.0` + `Rust`
+*   **Frontend (The Cockpit)**: `Next.js 14` + `TailwindCSS` + `React Flow` (@xyflow/react) + `Zustand`
+*   **Backend (The Orchestrator)**: `FastAPI` + `LangGraph` + `LiteLLM`
+*   **Storage**: `SQLite` via `SQLAlchemy` (Fully typed relational schemas for Flows, Agents, Cases, Prompts, etc.)
 
 ---
 
-## 🚀 Quick Start | 快速开始
+## Quick Start (快速开始)
+
+NexaFlow 支持两种启动模式。作为开发者，推荐使用 Web 双开热更新模式；如果想体验原生 OS 或打包客户端，请使用 Tauri 模式。
 
 ### Option 1: Web Mode (For Development / 开发模式)
 ```bash
-# 后端 Backend:
+# 后端:
 cd backend
-python -m venv venv && source venv/bin/activate
+python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 
-# 前端 Frontend:
+# 前端:
 cd frontend
-npm install && npm run dev
+npm install
+npm run dev # 浏览器打开 http://localhost:3000
 ```
 
-### Option 2: Desktop OS Mode (Tauri / 桌面原生模式)
+### Option 2: Desktop OS Mode (Tauri 桌面原生模式)
+*(Requires Rust installed on your machine)*
 ```bash
-# 编译 Python 引擎 Build the engine
-chmod +x build_engine.sh && ./build_engine.sh
+# 1. 编译并注入 Python 引擎伴生进程 (在根目录执行)
+chmod +x build_engine.sh
+./build_engine.sh
 
-# 启动应用 Launch
+# 2. 拉起原生桌面端调试
 cd frontend
 npm run tauri dev
+
+# 3. 一键打包为您自己的独立客户端 (.dmg / .exe)
+npm run tauri build
 ```
 
 ---
 
-## 🗺️ Roadmap | 路线图
+## Roadmap & How to Contribute
 
-- [ ] **Observability 2.0**: R2D3-inspired visual engine for real-time "Memory Cleansing" traces. (受 R2D3 启发的高级记忆清洗可视化引擎)
-- [ ] **Distributed Task Queue**: Integrating `Temporal` for high-concurrency enterprise resilience. (接入分布式任务队列，支持高并发企业级调度)
-- [ ] **Self-Evolving Logic**: Refine `Optimizer Agent` to auto-rewrite BPNL based on historical Intervention Cases. (完善优化器 Agent，基于人工干预历史自动重写业务逻辑)
-- [ ] **Browser-Use Monitor**: Stream real-time Playwright execution frames to the monitor screen. (实时浏览器执行画面流式推送到监控屏)
+开源这套架构，是希望提供一个 **“拥有严密逻辑和极高视觉审美的 AI OS 脚手架”**。目前的 V0.1 版本已跑通核心的端到端闭环，非常欢迎提交 PR 来一起完善它：
+
+**Completed (已完成的里程碑)**
+- [x] 深度定制 React Flow 引擎，实现带有 `Phase/Sublane` 嵌套的工业级二维矩阵 (Matrix) 泳道布局。
+- [x] 构建四权分立 (System/Agent/Human/Hardware) 的 BPNL JSON 编译器。
+- [x] 升级为基于 `SQLite / SQLAlchemy` 的结构化资产持久层。
+- [x] 通过 `Tauri + Python Sidecar` 模式，成功封装并打包为 Local-First 的独立桌面客户端。
+
+**To Do List (核心深水区)**
+- [ ] **[Backend]** 接入 `Celery` / `Temporal`。将目前的单线程阻断式调度升级为支持极高并发的分布式任务队列。
+- [ ] **[Backend]** 接入 `PostgreSQL` 作为 LangGraph 的 Checkpointer，实现真正意义上跨服务器、抗宕机的任务挂起与唤醒（HITL 断点续传）。
+- [ ] **[Execution]** 将 `browser-use` (Playwright) 封装为标准原子动作，拦截浏览器执行时的每一帧画面，并转为 Base64 通过 WebSocket 推流至前端的 Monitor 监控屏。
+- [ ] **[Evolution]** 完善 `Optimizer Agent`。基于 Ledger 中收集的人工接管记录（Cases），辅以 RAG 检索，利用大模型自动重写底层 BPNL，实现图纸和业务逻辑的自动进化。
 
 ---
 
-## 📄 License & Commercial | 许可与商业授权
+## License & Contact
 
 NexaFlow is released under the **AGPL-3.0 License**. 
 
-*   **Open Source**: Free for personal study and non-commercial testing. (个人学习与非商用测试完全免费)
-*   **Commercial Use**: NexaFlow uses the **AGPL-3.0** license by default. If you need to integrate NexaFlow into a **closed-source commercial product or internal enterprise system** and cannot comply with the open-source obligations of AGPL, please contact us for a **Commercial License**.
-*   **商业授权**: 本项目默认采用 **AGPL-3.0** 协议。如果您需要在**闭源商业产品**或**企业内部闭源系统**中集成 NexaFlow，且无法遵守 AGPL 的开源义务（如公开衍生代码），请联系我们获取 **商业授权 (Commercial License)**。
+This means you are free to use, study, and modify NexaFlow for personal or internal non-commercial testing environments. However, if you intend to use NexaFlow in a **commercial product, SaaS service, or as the core scheduling engine of an internal closed-source enterprise system**, and you do not wish to open-source your entire modified backend code, **you MUST purchase a Commercial License**.
 
-📧 **Contact / 咨询:** [charismamikoo@gmail.com]
+*If you find the architectural design or the UI/UX concepts of NexaFlow valuable for your enterprise use cases, or if you're interested in consulting / custom development / commercial licensing, feel free to reach out:*
+
+**Contact:** charismamikoo@gmail.com
 
 ---
-
 <div align="center">
-  <p><b>Built for the hackers who want absolute control over their Agents.</b></p>
-  <p><b>为那些追求对 Agent 拥有绝对控制权的黑客而生。</b></p>
-  <br>
-  <p>✨ <i>Special thanks: Core architecture and philosophy co-created via inference with Gemini.</i></p>
-  <p><i>特别鸣谢：本项目核心架构与理念由 Gemini 协同推演创作。</i></p>
+  <p><i>Built for the hackers who want control over their Agents.</i></p>
+  <p><b>Special thanks: Core architecture and philosophy co-created via inference with Gemini.</b></p>
 </div>
