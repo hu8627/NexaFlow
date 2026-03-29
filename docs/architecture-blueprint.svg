@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 760" width="100%" height="100%" style="background-color: #0E121B; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Background Grid Pattern -->
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#1E293B" stroke-width="1" stroke-opacity="0.5"/>
+    </pattern>
+
+    <!-- Glow Filters -->
+    <filter id="glow-purple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-orange" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-up" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748B" />
+    </marker>
+    <marker id="arrow-left-orange" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 10 0 L 0 5 L 10 10 z" fill="#F59E0B" opacity="0.8"/>
+    </marker>
+    <marker id="arrow-right-green" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#10B981" />
+    </marker>
+  </defs>
+
+  <!-- Background Layer -->
+  <rect width="100%" height="100%" fill="#0E121B" />
+  <rect width="100%" height="100%" fill="url(#grid)" />
+
+  <!-- Title -->
+  <text x="480" y="55" fill="#F8FAFC" font-size="28" font-weight="bold" text-anchor="middle" letter-spacing="1">GridsPilot Architecture Blueprint</text>
+  <text x="480" y="85" fill="#94A3B8" font-size="14" text-anchor="middle" letter-spacing="0.5">Micro to Macro: The Human-in-the-Loop AI Operating System</text>
+
+  <!-- ========================================== -->
+  <!-- RIGHT PILLAR: GOVERNANCE LAYER (Orange)    -->
+  <!-- ========================================== -->
+  <g transform="translate(750, 120)">
+    <rect width="170" height="590" rx="12" fill="#451A03" fill-opacity="0.3" stroke="#F59E0B" stroke-width="2" filter="url(#glow-orange)"/>
+    
+    <!-- Pillar Title -->
+    <rect width="170" height="46" rx="12" fill="#F59E0B" fill-opacity="0.1" />
+    <text x="85" y="28" fill="#FDE68A" font-size="16" font-weight="bold" text-anchor="middle">🛡️ Governance</text>
+    
+    <!-- 1. Rules -->
+    <rect x="20" y="80" width="130" height="80" rx="8" fill="#0E121B" stroke="#F59E0B" stroke-width="1.5" stroke-opacity="0.5"/>
+    <text x="85" y="115" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">Rules</text>
+    <text x="85" y="135" fill="#94A3B8" font-size="11" text-anchor="middle">(全局合规法则)</text>
+
+    <!-- 2. Guards -->
+    <rect x="20" y="200" width="130" height="80" rx="8" fill="#0E121B" stroke="#F59E0B" stroke-width="1.5" stroke-opacity="0.5"/>
+    <text x="85" y="235" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">Guards</text>
+    <text x="85" y="255" fill="#94A3B8" font-size="11" text-anchor="middle">(实时探针拦截)</text>
+
+    <!-- 3. Evaluators (NEW) -->
+    <rect x="20" y="320" width="130" height="80" rx="8" fill="#0E121B" stroke="#F59E0B" stroke-width="1.5" stroke-opacity="0.5"/>
+    <text x="85" y="355" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">Evaluators</text>
+    <text x="85" y="375" fill="#94A3B8" font-size="11" text-anchor="middle">(结果打分裁判)</text>
+
+    <!-- 4. Janitor (NEW) -->
+    <rect x="20" y="440" width="130" height="80" rx="8" fill="#0E121B" stroke="#F59E0B" stroke-width="1.5" stroke-opacity="0.5"/>
+    <text x="85" y="475" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">Janitor</text>
+    <text x="85" y="495" fill="#94A3B8" font-size="11" text-anchor="middle">(系统清理与扫地)</text>
+
+    <!-- Vertical Connection Dashed Line within Pillar -->
+    <path d="M 85 160 L 85 200 M 85 280 L 85 320 M 85 400 L 85 440" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4,4" opacity="0.6"/>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- L4: BUSINESS & INTERACTION LAYER (Purple)  -->
+  <!-- ========================================== -->
+  <g transform="translate(40, 120)">
+    <rect width="620" height="130" rx="12" fill="#2E1065" fill-opacity="0.3" stroke="#8B5CF6" stroke-width="2" filter="url(#glow-purple)"/>
+    <text x="24" y="32" fill="#DDD6FE" font-size="16" font-weight="bold">L4. Business &amp; Interaction</text>
+    <text x="24" y="52" fill="#A78BFA" font-size="12">业务生态与协同工作区 (The Human Touch)</text>
+    
+    <g transform="translate(24, 65)">
+      <rect x="0" y="0" width="145" height="44" rx="6" fill="#0E121B" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.6"/>
+      <text x="72.5" y="27" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">Business Schema</text>
+
+      <rect x="160" y="0" width="180" height="44" rx="6" fill="#0E121B" stroke="#8B5CF6" stroke-width="1.5" stroke-opacity="0.6"/>
+      <text x="250" y="27" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">RAG Assets / VectorDB</text>
+
+      <!-- HITL Workspace with Inbox explicit mention -->
+      <rect x="355" y="0" width="225" height="44" rx="6" fill="#8B5CF6" fill-opacity="0.2" stroke="#A78BFA" stroke-width="2"/>
+      <text x="467.5" y="27" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">🧑‍💻 HITL Workspace / Inbox</text>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- L3: OPERATIONS & FLYWHEEL LAYER (Green)    -->
+  <!-- ========================================== -->
+  <g transform="translate(40, 280)">
+    <rect width="620" height="130" rx="12" fill="#022C22" fill-opacity="0.4" stroke="#10B981" stroke-width="2" filter="url(#glow-green)"/>
+    <text x="24" y="32" fill="#A7F3D0" font-size="16" font-weight="bold">L3. Operations &amp; Flywheel</text>
+    <text x="24" y="52" fill="#6EE7B7" font-size="12">运行与系统自进化层 (The Autonomous Loop)</text>
+    
+    <g transform="translate(24, 65)">
+      <rect x="0" y="0" width="130" height="44" rx="6" fill="#0E121B" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.6"/>
+      <text x="65" y="27" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">Traces / Cases</text>
+
+      <rect x="145" y="0" width="130" height="44" rx="6" fill="#0E121B" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.6"/>
+      <text x="210" y="27" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">Tickets (工单)</text>
+
+      <rect x="290" y="0" width="110" height="44" rx="6" fill="#0E121B" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.6"/>
+      <text x="345" y="27" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">Data Ledger</text>
+
+      <rect x="415" y="0" width="145" height="44" rx="6" fill="#10B981" fill-opacity="0.1" stroke="#34D399" stroke-width="2"/>
+      <text x="487.5" y="27" fill="#F8FAFC" font-size="14" font-weight="bold" text-anchor="middle">Optimizer Agent</text>
+
+      <!-- Flywheel Arrows -->
+      <path d="M 132 22 L 142 22" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-right-green)"/>
+      <path d="M 277 22 L 287 22" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-right-green)"/>
+      <path d="M 402 22 L 412 22" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-right-green)"/>
+      <path d="M 487 0 Q 487 -30 250 -30 Q 65 -30 65 -5" fill="none" stroke="#10B981" stroke-width="2" stroke-dasharray="4,4" opacity="0.8" marker-end="url(#arrow-right-green)"/>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- L2: ORCHESTRATION LAYER (Blue)             -->
+  <!-- ========================================== -->
+  <g transform="translate(40, 440)">
+    <rect width="620" height="130" rx="12" fill="#082F49" fill-opacity="0.5" stroke="#3B82F6" stroke-width="2" filter="url(#glow-blue)"/>
+    <text x="24" y="32" fill="#BAE6FD" font-size="16" font-weight="bold">L2. Orchestration &amp; Assembly</text>
+    <text x="24" y="52" fill="#7DD3FC" font-size="12">二维矩阵编排层 (The Engine / PNSA Paradigm)</text>
+    
+    <g transform="translate(24, 65)">
+      <rect x="0" y="0" width="90" height="44" rx="6" fill="#0E121B" stroke="#3B82F6" stroke-width="1.5" stroke-opacity="0.6"/>
+      <text x="45" y="19" fill="#F8FAFC" font-size="13" font-weight="bold" text-anchor="middle">Triggers</text>
+      <text x="45" y="34" fill="#94A3B8" font-size="10" text-anchor="middle">(触发器)</text>
+
+      <rect x="105" y="0" width="110" height="44" rx="6" fill="#0E121B" stroke="#3B82F6" stroke-width="1.5" stroke-opacity="0.6"/>
+      <text x="160" y="19" fill="#F8FAFC" font-size="13" font-weight="bold" text-anchor="middle">Integrations</text>
+      <text x="160" y="34" fill="#94A3B8" font-size="10" text-anchor="middle">(系统集成)</text>
+
+      <rect x="230" y="0" width="175" height="44" rx="6" fill="#3B82F6" fill-opacity="0.15" stroke="#60A5FA" stroke-width="2"/>
+      <text x="317.5" y="27" fill="#F8FAFC" font-size="13" font-weight="bold" text-anchor="middle">2D Canvas (Studio)</text>
+
+      <rect x="420" y="0" width="165" height="44" rx="6" fill="#0E121B" stroke="#3B82F6" stroke-width="1.5" stroke-opacity="0.6"/>
+      <text x="502.5" y="19" fill="#F8FAFC" font-size="13" font-weight="bold" text-anchor="middle">PNSA Components</text>
+      <text x="502.5" y="34" fill="#94A3B8" font-size="10" text-anchor="middle">(System/Agent/...)</text>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- L1: PRODUCTIVITY BASE LAYER (Slate)        -->
+  <!-- ========================================== -->
+  <g transform="translate(40, 600)">
+    <rect width="620" height="110" rx="12" fill="#0F172A" fill-opacity="0.8" stroke="#475569" stroke-width="2" />
+    <text x="24" y="32" fill="#E2E8F0" font-size="16" font-weight="bold">L1. AI Workforces &amp; Productivity Base</text>
+    <text x="24" y="52" fill="#94A3B8" font-size="12">AI 算力与原子能力基座 (The Raw Power)</text>
+    
+    <g transform="translate(24, 65)">
+      <rect x="0" y="0" width="125" height="30" rx="4" fill="#1E293B" stroke="#64748B" stroke-width="1"/>
+      <text x="62.5" y="20" fill="#CBD5E1" font-size="13" font-weight="bold" text-anchor="middle">🧠 Models</text>
+
+      <rect x="145" y="0" width="125" height="30" rx="4" fill="#1E293B" stroke="#64748B" stroke-width="1"/>
+      <text x="207.5" y="20" fill="#CBD5E1" font-size="13" font-weight="bold" text-anchor="middle">🤖 Agents</text>
+
+      <rect x="290" y="0" width="125" height="30" rx="4" fill="#1E293B" stroke="#64748B" stroke-width="1"/>
+      <text x="352.5" y="20" fill="#CBD5E1" font-size="13" font-weight="bold" text-anchor="middle">⚡ Skills (API)</text>
+
+      <rect x="435" y="0" width="125" height="30" rx="4" fill="#1E293B" stroke="#64748B" stroke-width="1"/>
+      <text x="497.5" y="20" fill="#CBD5E1" font-size="13" font-weight="bold" text-anchor="middle">📝 Prompts</text>
+    </g>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- CROSS-LAYER CONNECTORS                     -->
+  <!-- ========================================== -->
+  <!-- Vertical Arrows (Upwards) Centered on 350  -->
+  <g stroke="#64748B" stroke-width="2" stroke-dasharray="4,4" opacity="0.6">
+    <path d="M 350 590 L 350 580" marker-end="url(#arrow-up)"/>
+    <path d="M 350 430 L 350 420" marker-end="url(#arrow-up)"/>
+    <path d="M 350 270 L 350 260" marker-end="url(#arrow-up)"/>
+  </g>
+
+  <!-- Governance Constraint Arrows & Texts -->
+  <!-- 根据新加入的 Evaluators 和 Janitor 调整了描述动词 -->
+  <g stroke="#F59E0B" stroke-width="2" stroke-dasharray="6,4" opacity="0.8">
+    <path d="M 740 185 L 655 185" marker-end="url(#arrow-left-orange)"/>
+    <path d="M 740 345 L 655 345" marker-end="url(#arrow-left-orange)"/>
+    <path d="M 740 505 L 655 505" marker-end="url(#arrow-left-orange)"/>
+    <path d="M 740 655 L 655 655" marker-end="url(#arrow-left-orange)"/>
+  </g>
+  
+  <text x="698" y="177" fill="#F59E0B" font-size="12" font-weight="bold" opacity="0.9" text-anchor="middle">Constraint</text>
+  <!-- L3 的监控改为了 Evaluate，对应 Evaluators 打分裁判 -->
+  <text x="698" y="337" fill="#F59E0B" font-size="12" font-weight="bold" opacity="0.9" text-anchor="middle">Evaluate</text>
+  <text x="698" y="497" fill="#F59E0B" font-size="12" font-weight="bold" opacity="0.9" text-anchor="middle">Intercept</text>
+  <!-- L1 的校验改为了 Clean up，对应 Janitor 扫地僧 -->
+  <text x="698" y="647" fill="#F59E0B" font-size="12" font-weight="bold" opacity="0.9" text-anchor="middle">Clean up</text>
+
+</svg>

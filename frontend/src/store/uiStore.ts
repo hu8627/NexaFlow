@@ -5,8 +5,8 @@ type ViewType =
   | 'studio' | 'components'
    | 'agents' | 'triggers' | 'prompts' | 'skills' | 'models'
   | 'schemas' | 'assets' | 'integrations'
-  | 'rules' | 'guards' | 'monitors'
-  | 'traces' | 'cases' | 'tickets' | 'ledger';
+  | 'rules' | 'guards' | 'evaluators' | 'janitor' | 'monitors'
+  | 'traces' | 'cases' | 'tickets' | 'insights' | 'qa' | 'ledger';
 
 interface UIState {
   currentView: ViewType;

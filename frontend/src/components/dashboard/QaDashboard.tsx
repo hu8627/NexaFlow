@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Database, Search, Filter, AlertTriangle, CheckCircle2, Clock, Eye, MessageSquare, PlayCircle, Loader2, Sparkles, Activity, ShieldAlert, TrendingUp, Cpu, DownloadCloud,Network } from 'lucide-react';
 
-export default function LedgerView() {
+export default function QaDashboard() {
   const [loading, setLoading] = useState(true);
 
   // 模拟从后端聚合统计出来的质检大盘数据

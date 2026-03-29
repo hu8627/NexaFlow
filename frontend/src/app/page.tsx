@@ -17,7 +17,7 @@ import { Globe2 } from 'lucide-react'; // 💡 引入一个地球图标
 import { 
   MessageSquare, Network, Cpu, Wrench, Database, Blocks, ShieldAlert, Users, 
   Archive, Inbox, Hash, ChevronRight, ChevronDown, Search, Settings, Command, 
-  Quote, FilePlus2, Loader2, Layers, Scale, Briefcase, Ticket, ListTree, 
+  Quote, FilePlus2, Loader2, Layers, Scale, Briefcase, Ticket, ListTree, CheckSquare, Wand2, Lightbulb, ShieldCheck,
   Share2, Activity, Zap 
 } from 'lucide-react';
 
@@ -51,12 +51,15 @@ import IntegrationHub from '@/components/dashboard/IntegrationHub';
 import RulesHub from '@/components/dashboard/RulesHub';
 import GuardsHub from '@/components/dashboard/GuardsHub';
 import MonitorHub from '@/components/dashboard/MonitorHub';
+import EvaluatorsHub from '@/components/dashboard/EvaluatorsHub';
+import JanitorHub from '@/components/dashboard/JanitorHub';
 
 // --- 6. Records & Insights (数据洞察) ---
 import TracesView from '@/components/dashboard/TracesView';
 import CasesView from '@/components/dashboard/CasesView';
 import TicketsView from '@/components/dashboard/TicketsView';
-import LedgerView from '@/components/dashboard/LedgerView';
+import InsightsHub from '@/components/dashboard/InsightsHub';
+import QaDashboard from '@/components/dashboard/QaDashboard';
 
 // ==============================================================================
 // 🎨 组件：二级折叠菜单组
@@ -257,6 +260,10 @@ export default function GridsPilotOS() {
           <NavGroup title={t.nav.grp_gov}>
             <NavItem id="rules" icon={<Scale size={16} />} label={t.nav.rules} />
             <NavItem id="guards" icon={<ShieldAlert size={16} />} label={t.nav.guards} />
+            {/* 💡 新增：裁判员 (The Judge) - Evals 驱动开发，给 Agent 的作业打分 */}
+            <NavItem id="evaluators" icon={<CheckSquare size={16} />} label={t.nav.evaluators} />
+            {/* 💡 新增：扫地僧 (The Cleaner) - 熵对抗，定期扫描并清理过期图纸与冲突法则 */}
+            <NavItem id="janitor" icon={<Wand2 size={16} />} label={t.nav.janitor} />
             <NavItem id="monitors" icon={<Activity size={16} />} label={t.nav.monitors} />  
           </NavGroup>
 
@@ -265,7 +272,10 @@ export default function GridsPilotOS() {
             <NavItem id="traces" icon={<ListTree size={16} />} label={t.nav.traces} />
             <NavItem id="cases" icon={<Briefcase size={16} />} label={t.nav.cases} />
             <NavItem id="tickets" icon={<Ticket size={16} />} label={t.nav.tickets} />
-            <NavItem id="ledger" icon={<Database size={16} />} label={t.nav.ledger} />
+            {/* 💡 升级：提纯的进化基因库 - 沉淀了经过人类验证的正确做法 */}
+            <NavItem id="insights" icon={<Lightbulb size={16} />} label={t.nav.insights} />
+            {/* 💡 升级：从单纯的流水账变为全局质检大盘 (QA Dashboard) */}
+            <NavItem id="qa" icon={<ShieldCheck size={16} />} label={t.nav.qa} />
           </NavGroup>
 
         </div>
@@ -317,13 +327,13 @@ export default function GridsPilotOS() {
         {/* ========================================================= */}
         {currentView === 'chat' && <ChatCopilot />}
         {currentView === 'workbench' && <Workbench />}
-
+        {currentView === 'workspace' && <Workspace />}
 
         {/* ========================================================= */}
         {/* 🚀 2. 外部业务协同 (External Business Workspaces) */}
         {/* 定位：对接外部场景（客服/销售/生态）的公共频道大厅 */}
         {/* ========================================================= */}
-        {currentView === 'workspace' && <Workspace />}
+        
 
         {/* 🚀 3. 编排与组装区 (Orchestration) */}
         {currentView === 'triggers' && <TriggerHub />} {/* 💡 这里完美挂载发令枪！ */}
@@ -339,20 +349,48 @@ export default function GridsPilotOS() {
         {currentView === 'schemas' && <SchemaHub />} 
         {currentView === 'assets' && <AssetHub />}
         {currentView === 'integrations' && <IntegrationHub />}
-
-        {/* 🚀 6. 治理域 (Governance) */}
+{/* ========================================================= */}
+        {/* 🚀 5. 治理域 (Governance / Harness) - 系统的防腐化之源 */}
+        {/* 立法者、执法者、裁判员与扫地僧的四维空间 */}
         {/* ========================================================= */}
+        
+        {/* The Law: 最高合规宪法树 */}
         {currentView === 'rules' && <RulesHub />} 
-        {/* 💡 修复点：Guards 菜单正确指向 GuardsHub (探针拦截配置页) */}
+        
+        {/* The Police: 实时安防探针拦截 */}
         {currentView === 'guards' && <GuardsHub />} 
-        {/* 💡 修复点：Monitors 菜单正确指向 MonitorHub (带有数据的全局大盘页) */}
+        
+        {/* The Judge: 独立裁判评估模型 */}
+        {currentView === 'evaluators' && <EvaluatorsHub />}
+        
+        {/* The Cleaner: 熵对抗与冗余清理 */}
+        {currentView === 'janitor' && <JanitorHub />}
+        
+        {/* The Radar: 全局系统健康度心跳大盘 */}
         {currentView === 'monitors' && <MonitorHub />}
 
-        {/* 🚀 7. 记录与洞察域 (Records & Insights) */}
+        {/* ========================================================= */}
+        {/* 🚀 6. 质量保证域 (Quality Assurance & Data Flywheel) */}
+        {/* 从无序日志到高阶基因的数据提纯漏斗 */}
+        {/* ========================================================= */}
+        
+        {/* Signals Level 1: 底层物理 API/模型调用流水账 */}
         {currentView === 'traces' && <TracesView />}
+        
+        {/* Signals Level 2: 结构化的高价值业务实例 */}
         {currentView === 'cases' && <CasesView />}
+        
+        {/* Exceptions: 被探针挂起，等待人类在 Inbox 中处理的异常 */}
         {currentView === 'tickets' && <TicketsView />}
-        {currentView === 'ledger' && <LedgerView />} 
+        
+        {/* Genes: 从人类纠错记录中提纯，待批准合入内存的进化建议 */}
+        {currentView === 'insights' && <InsightsHub />}
+        
+        {/* QA Dashboard: 顶层质检战情室 (原 Ledger 升级版) */}
+        {currentView === 'qa' && <QaDashboard />}
+
+        {/* 💡 兼容遗留路由: 防止之前绑定的 active 按钮报错 */}
+        {currentView === 'ledger' && <QaDashboard />}
 
 
         {/* ========================================================= */}
